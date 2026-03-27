@@ -21,11 +21,11 @@ The environment is built on a Ryzen 7 architecture, leveraging Docker to maintai
 A core component of my security workflow is structured documentation. This project integrates principles of Knowledge Management, ensuring that every alert, configuration, and incident is documented for future auditability and team collaboration.
 
 🛠️ Roadmap & Future Improvements
-[ ] Integrate TheHive for advanced Incident Case Management.
-[ ] Implement automated response scripts (Active Response).
+1. [ ] Integrate TheHive for advanced Incident Case Management.
+2. [ ] Implement automated response scripts (Active Response).
 
 👨‍💻 About the Author
-Systems Engineer & Cybersecurity Professional
-Certification: ISC2 Certified in Cybersecurity (CC)
-Specialization: SecOps, Cloud Infrastructure, and Technical Documentation.
-Portfolio: www.linkedin.com/in/alejandro-zavala-zenteno
+1. Systems Engineer & Cybersecurity Professional.
+2. Certification: ISC2 Certified in Cybersecurity (CC).
+3. Specialization: SecOps, Cloud Infrastructure, and Technical Documentation.
+4. Portfolio: www.linkedin.com/in/alejandro-zavala-zenteno
