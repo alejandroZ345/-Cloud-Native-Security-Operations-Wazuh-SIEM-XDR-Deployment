@@ -41,6 +41,10 @@ The lab is structured as a series of documented phases, each building on the pre
 | [Phase 3](./phase-3-threat-simulation.md/) | Linux agent & active threat simulation | ✅ Complete |
 | Phase 4 | File Integrity Monitoring (FIM) | 🔄 In progress |
 | Phase 5 | Custom detection rules | 🔄 In progress |
+| Phase 6 | MITRE ATT&CK complete mapping | 🔜 Planned |
+| Phase 7 | Custom Wazuh Dashboard | 🔜 Planned |
+| Phase 8 | Active Response Scripts | 🔜 Planned |
+| Phase 9 | TheHive integration — incident case management | 🔜 Planned |
 
 ---
 
@@ -71,7 +75,7 @@ The lab is structured as a series of documented phases, each building on the pre
 
 ## Notable Technical Challenges Solved
 
-**Docker engine migration** — Docker Desktop v29.3.1 hardcodes container volume data to `AppData\Local\Docker` regardless of WSL distribution location. Ubuntu and Kali were successfully migrated to D: drive; Docker's payload remains on C:. This is a known architectural constraint documented as a community note.
+**Docker engine migration** — Ubuntu, Kali and Docker (virtual disk) were successfully migrated to D: drive.
 
 **Bcrypt credential synchronization** — Injecting a custom password into a Wazuh Docker deployment requires three synchronized changes: hashing the password with the OpenSearch hash tool in an ephemeral container, writing the hash to `config/wazuh_indexer/internal_users.yml`, and updating plaintext credentials in `docker-compose.yml` with strict double-quote wrapping for special characters. Two failed attempts (in-container script execution and pure IaC injection) are documented before arriving at the validated procedure.
 
@@ -83,9 +87,10 @@ The lab is structured as a series of documented phases, each building on the pre
 
 - [ ] Phase 4: Configure FIM on `/etc`, `/bin`, `/usr/bin` and document alert output
 - [ ] Phase 5: Write custom Wazuh XML detection rules (brute-force threshold, sudo abuse, `/etc/passwd` modification)
-- [ ] MITRE ATT&CK mapping table (complete coverage across all phases)
-- [ ] Integrate TheHive for incident case management
-- [ ] Implement Active Response scripts for automated threat containment
+- [ ] Phase 6: MITRE ATT&CK mapping table (complete coverage across all phases)
+- [ ] Phase 7: Implement a Custom Wazuh Dashboard starring at critical KPIs in lab
+- [ ] Phase 8: Implement Active Response scripts for automated threat containment
+- [ ] Phase 9: Integrate TheHive for incident case management
 
 ---
 
