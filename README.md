@@ -18,10 +18,6 @@ The lab is structured as a series of documented phases, each building on the pre
 
 ---
 
-[Architecture](./wazuh_lab_architecture.md/)
-
----
-
 ## Lab Environment
 
 | Component | Details |
@@ -39,6 +35,7 @@ The lab is structured as a series of documented phases, each building on the pre
 
 | Phase | Title | Status |
 |---|---|---|
+| [Lab Architecture](./wazuh_lab_architecture.md/) | Design Lab architecture | ✅ Complete |
 | [Phase 1](./phase-1-stack-deployment.md/) | Stack deployment & security hardening | ✅ Complete |
 | [Phase 2](./phase-2-agent-deployment.md/) | Agent deployment & lifecycle management | ✅ Complete |
 | [Phase 3](./phase-3-threat-simulation/) | Linux agent & active threat simulation | ✅ Complete |
