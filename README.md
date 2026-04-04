@@ -24,7 +24,7 @@ The lab is structured as a series of documented phases, each building on the pre
 |---|---|
 | Host OS | Windows (AMD Ryzen 7 5700X, Aorus B450-M, RTX 3050) |
 | Hypervisor | WSL2 |
-| Linux distro | Ubuntu — migrated to D: drive |
+| Linux distro | Ubuntu (WSL2) — migrated to D: drive |
 | Container engine | Docker Desktop v29.3.1 (WSL2 backend) |
 | SIEM version | Wazuh v4.14.4 — single-node architecture |
 | Attacker OS | Kali Linux (WSL2) — migrated to D: drive |
@@ -35,12 +35,12 @@ The lab is structured as a series of documented phases, each building on the pre
 
 | Phase | Title | Status |
 |---|---|---|
-| [Lab Architecture](./wazuh_lab_architecture.md/) | Design Lab architecture | ✅ Complete |
+| [Lab Architecture](./wazuh_lab_architecture.md/) | Design lab architecture | ✅ Complete |
 | [Phase 1](./phase-1-stack-deployment.md/) | Stack deployment & security hardening | ✅ Complete |
 | [Phase 2](./phase-2-agent-deployment.md/) | Agent deployment & lifecycle management | ✅ Complete |
-| [Phase 3](./phase-3-threat-simulation/) | Linux agent & active threat simulation | ✅ Complete |
+| [Phase 3](./phase-3-threat-simulation.md/) | Linux agent & active threat simulation | ✅ Complete |
 | Phase 4 | File Integrity Monitoring (FIM) | 🔄 In progress |
-| Phase 5 | Custom detection rules | 🔜 Planned |
+| Phase 5 | Custom detection rules | 🔄 In progress |
 
 ---
 
