@@ -35,7 +35,7 @@ The lab is structured as a series of documented phases, each building on the pre
 
 | Phase | Title | Status |
 |---|---|---|
-| [Lab Architecture](./wazuh_lab_architecture.md/) | Design lab architecture | ✅ Complete |
+| [Lab Architecture](./lab_architecture.md/) | Design lab architecture | ✅ Complete |
 | [Phase 1](./phase-1-stack-deployment.md/) | Stack deployment & security hardening | ✅ Complete |
 | [Phase 2](./phase-2-agent-deployment.md/) | Agent deployment & lifecycle management | ✅ Complete |
 | [Phase 3](./phase-3-threat-simulation.md/) | Linux agent & active threat simulation | ✅ Complete |
@@ -87,10 +87,11 @@ The lab is structured as a series of documented phases, each building on the pre
 
 - [x] Phase 4: Configure FIM on `/etc`, `/bin`, `/usr/bin` and document alert output
 - [x] Phase 5: Write custom Wazuh XML detection rules (brute-force threshold, sudo abuse, `/etc/passwd` modification)
-- [ ] Phase 6: MITRE ATT&CK mapping table (complete coverage across all phases)
+- [x] Phase 6: MITRE ATT&CK mapping table (complete coverage across phases 1 to 5)
 - [ ] Phase 7: Implement a Custom Wazuh Dashboard starring at critical KPIs in lab
 - [ ] Phase 8: Implement Active Response scripts for automated threat containment
 - [ ] Phase 9: Integrate TheHive for incident case management
+- [ ] Increase gap coverage using MITRE ATT&CK Standard (for Lateral Movement, Command and Control, Exfiltration and Discovery attacks) [Phase TBD]
 
 ---
 
