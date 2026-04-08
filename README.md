@@ -121,14 +121,14 @@ wazuh-siem-homelab/
 ├── phase-6-mitre-mapping.md
 │
 ├── detections/
-│   └── mitre-attack-map.md                   ← complete ATT&CK coverage matrix
+│   └── mitre-attack-map.md                   
 │
 └── runbooks/
-    ├── runbook-100001-passwd-modification.md  ← /etc/passwd tampering triage
-    ├── runbook-100002-ssh-bruteforce.md       ← SSH brute-force correlation triage
-    ├── runbook-100003-sudo-abuse.md           ← Privilege escalation probing triage
-    ├── runbook-100004-discovery.md            ← Post-compromise reconnaissance triage
-    └── runbook-100005-reverse-shell.md        ← Reverse shell C2 triage
+    ├── runbook-100001-passwd-modification.md  
+    ├── runbook-100002-ssh-bruteforce.md       
+    ├── runbook-100003-sudo-abuse.md           
+    ├── runbook-100004-discovery.md            
+    └── runbook-100005-reverse-shell.md        
 ```
 
 ---
