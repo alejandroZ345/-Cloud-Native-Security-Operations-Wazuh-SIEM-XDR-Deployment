@@ -73,7 +73,21 @@ Rule 100005 uses a broad behavioral net by design (see [Phase 5 § 6](./phase-5-
 
 ---
 
-## 6. Repository structure after Phase 6
+## 6. Runbook library
+
+Each custom detection rule has a dedicated triage runbook in the `runbooks/` directory. The library follows a standardized structure: one runbook per rule, each containing Context, Triage Steps, and False Positive Guidance. Built-in Wazuh rules (5760, 5712, 554, 550) do not have separate runbooks because their detection context and validation are fully documented within the corresponding phase files ([Phase 3](./phase-3-threat-simulation.md/) and [Phase 4](./phase-4-fim.md/)).
+
+| Runbook | Rule | Severity | ATT&CK Tactic |
+|---|---|---|---|
+| [`runbook-100001-passwd-modification.md`](./runbooks/runbook-100001-passwd-modification.md) | 100001 | Level 12 — Critical | Persistence / Privilege Escalation |
+| [`runbook-100002-ssh-bruteforce.md`](./runbooks/runbook-100002-ssh-bruteforce.md) | 100002 | Level 10 — Alert | Credential Access |
+| [`runbook-100003-sudo-abuse.md`](./runbooks/runbook-100003-sudo-abuse.md) | 100003 | Level 8 — Warning | Privilege Escalation |
+| [`runbook-100004-discovery.md`](./runbooks/runbook-100004-discovery.md) | 100004 | Level 7 — Warning | Discovery |
+| [`runbook-100005-reverse-shell.md`](./runbooks/runbook-100005-reverse-shell.md) | 100005 | Level 12 — Critical | Command and Control |
+
+---
+
+## 7. Repository structure after Phase 6
 
 ```
 wazuh-siem-homelab/
@@ -89,12 +103,16 @@ wazuh-siem-homelab/
 ├── phase-6-mitre-mapping.md
 │
 ├── detections/
-│   └── mitre-attack-map.md        ← complete ATT&CK mapping table
+│   └── mitre-attack-map.md                   
 │
 └── runbooks/
-    └── runbook-100005-reverse-shell.md  ← Rule 100005 triage SOP
+    ├── runbook-100001-passwd-modification.md  
+    ├── runbook-100002-ssh-bruteforce.md       
+    ├── runbook-100003-sudo-abuse.md           
+    ├── runbook-100004-discovery.md            
+    └── runbook-100005-reverse-shell.md
 ```
 
 ---
 
-*Previous: [Phase 5 — Custom detection engineering](./phase-5-custom-rules.md/) · Next: [Phase 7 — Custom Wazuh dashboard](./phase-7-dashboard.md/)*
+*Previous: [Phase 5 — Custom detection engineering](./phase-5-custom-rules.md/) · Next: [Phase 7 — Custom Wazuh dashboard](./phase-7-custom-dashboard.md/)*

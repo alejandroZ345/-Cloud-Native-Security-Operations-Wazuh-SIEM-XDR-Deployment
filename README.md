@@ -42,8 +42,8 @@ The lab is structured as a series of documented phases, each building on the pre
 | [Phase 4](./phase-4-fim.md/) | File Integrity Monitoring (FIM) | ✅ Complete |
 | [Phase 5](./phase-5-custom-rules.md/) | Custom detection rules | ✅ Complete |
 | [Phase 6](./phase-6-mitre-mapping.md/) | MITRE ATT&CK mapping & detection standardization | ✅ Complete |
-| Phase 7 | Custom Wazuh Dashboard | 🔄 In progress |
-| Phase 8 | Active Response Scripts | 🔜 Planned |
+| [Phase 7](./phase-7-custom-dashboard.md/)| Custom Wazuh Dashboard | ✅ Complete |
+| Phase 8 | Active Response Scripts | 🔄 In progress |
 | Phase 9 | TheHive integration — incident case management | 🔜 Planned |
 
 ---
@@ -61,6 +61,8 @@ The lab is structured as a series of documented phases, each building on the pre
 **Custom detection engineering** — Five custom XML rules (100001–100005) were authored, tested against real telemetry, and iteratively tuned to the environment's specific OS and authentication stack. The detection strategy evolved from rigid signature matching to behavioral TTP detection aligned with the Pyramid of Pain methodology.
 
 **MITRE ATT&CK standardization** — All validated detections are mapped to the ATT&CK® Enterprise Framework with a dedicated `detections/` directory for the coverage matrix and a `runbooks/` directory providing standardized triage procedures for each custom rule.
+
+**Customized Dashboard Creation** — Improve operational visibility by building a unified dashboard that features the most critical KPIs built in.
 
 ---
 
@@ -121,14 +123,14 @@ wazuh-siem-homelab/
 ├── phase-6-mitre-mapping.md
 │
 ├── detections/
-│   └── mitre-attack-map.md                   ← complete ATT&CK coverage matrix
+│   └── mitre-attack-map.md                   
 │
 └── runbooks/
-    ├── runbook-100001-passwd-modification.md  ← /etc/passwd tampering triage
-    ├── runbook-100002-ssh-bruteforce.md       ← SSH brute-force correlation triage
-    ├── runbook-100003-sudo-abuse.md           ← Privilege escalation probing triage
-    ├── runbook-100004-discovery.md            ← Post-compromise reconnaissance triage
-    └── runbook-100005-reverse-shell.md        ← Reverse shell C2 triage
+    ├── runbook-100001-passwd-modification.md  
+    ├── runbook-100002-ssh-bruteforce.md       
+    ├── runbook-100003-sudo-abuse.md           
+    ├── runbook-100004-discovery.md            
+    └── runbook-100005-reverse-shell.md        
 ```
 
 ---
@@ -138,7 +140,7 @@ wazuh-siem-homelab/
 - [x] Phase 4: Configure FIM on `/etc`, `/bin`, `/usr/bin` and document alert output
 - [x] Phase 5: Write custom Wazuh XML detection rules (brute-force threshold, sudo abuse, `/etc/passwd` modification)
 - [x] Phase 6: MITRE ATT&CK mapping table (complete coverage across phases 1 to 5)
-- [ ] Phase 7: Implement a Custom Wazuh Dashboard starring at critical KPIs in lab
+- [x] Phase 7: Implement a Custom Wazuh Dashboard starring at critical KPIs in lab
 - [ ] Phase 8: Implement Active Response scripts for automated threat containment
 - [ ] Phase 9: Integrate TheHive for incident case management
 
