@@ -114,6 +114,7 @@ wazuh-siem-homelab/
 │
 ├── README.md
 ├── LICENSE
+├── SECURITY.md
 │
 ├── architecture/ 
 │    └── lab_architecture.md
@@ -137,8 +138,7 @@ wazuh-siem-homelab/
 │    ├── runbook-100004-discovery.md            
 │    └── runbook-100005-reverse-shell.md     
 │ 
-├── .github/
-│   ├── SECURITY.md                            
+├── .github/                            
 │   ├── CODE_OF_CONDUCT.md                     
 │   ├── CONTRIBUTING.md                        
 │   └── ISSUE_TEMPLATE/
