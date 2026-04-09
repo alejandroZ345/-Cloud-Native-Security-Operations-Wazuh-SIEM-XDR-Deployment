@@ -1,6 +1,6 @@
 # Wazuh SIEM Home Lab
 
-> End-to-end SOC pipeline: deployment · hardening · agent management · active threat simulation · detection validation.
+> End-to-end SOC pipeline: deployment · hardening · agent management · active threat simulation · detection engineering · MITRE ATT&CK mapping · automated containment.
 
 ![Wazuh](https://img.shields.io/badge/Wazuh-4.14.4-blue?style=flat-square)
 ![Docker](https://img.shields.io/badge/Docker-29.3.1-2496ED?style=flat-square&logo=docker&logoColor=white)
@@ -12,7 +12,7 @@
 
 ## Overview
 
-This project documents the deployment and operation of an enterprise-grade SIEM/XDR platform using **Wazuh v4.14.4** orchestrated via Docker Compose on a WSL2 environment. The goal is to simulate a real-world Security Operations Center (SOC) pipeline — from infrastructure provisioning to active threat detection — covering skills directly applicable to Junior SOC Analyst and Network Security Engineer roles.
+This project documents the deployment and operation of an enterprise-grade SIEM/XDR platform using **Wazuh v4.14.4** orchestrated via Docker Compose on a WSL2 environment. The goal is to simulate a real-world Security Operations Center (SOC) pipeline — from infrastructure provisioning to active threat detection, custom detection engineering, standardized MITRE ATT&CK intelligence mapping, and automated threat containment — covering skills directly applicable to Junior SOC Analyst and Network Security Engineer roles.
 
 The lab is structured as a series of documented phases, each building on the previous one, so that every configuration decision and troubleshooting step is reproducible and auditable.
 
@@ -40,10 +40,10 @@ The lab is structured as a series of documented phases, each building on the pre
 | [Phase 2](./phases/phase-2-agent-deployment.md/) | Agent deployment & lifecycle management | ✅ Complete |
 | [Phase 3](./phases/phase-3-threat-simulation.md/) | Linux agent & active threat simulation | ✅ Complete |
 | [Phase 4](./phases/phase-4-fim.md/) | File Integrity Monitoring (FIM) | ✅ Complete |
-| [Phase 5](./phases/phase-5-custom-rules.md/) | Custom detection rules | ✅ Complete |
+| [Phase 5](./phases/phase-5-custom-rules.md/) | Custom detection engineering & rule tuning | ✅ Complete |
 | [Phase 6](./phases/phase-6-mitre-mapping.md/) | MITRE ATT&CK mapping & detection standardization | ✅ Complete |
-| [Phase 7](./phases/phase-7-custom-dashboard.md/)| Custom Wazuh Dashboard | ✅ Complete |
-| Phase 8 | Active Response Scripts | 🔄 In progress |
+| [Phase 7](./phases/phase-7-custom-dashboard.md/) | Custom SOC dashboard & telemetry visualization | ✅ Complete |
+| [Phase 8](./phases/phase-8-active-response.md/) | Active response engineering & automated containment | ✅ Complete |
 | Phase 9 | TheHive integration — incident case management | 🔜 Planned |
 
 ---
@@ -62,7 +62,9 @@ The lab is structured as a series of documented phases, each building on the pre
 
 **MITRE ATT&CK standardization** — All validated detections are mapped to the ATT&CK® Enterprise Framework with a dedicated `detections/` directory for the coverage matrix and a `runbooks/` directory providing standardized triage procedures for each custom rule.
 
-**Customized Dashboard Creation** — Improve operational visibility by building a unified dashboard that features the most critical KPIs built in.
+**SOC dashboard engineering** — A custom "Single Pane of Glass" dashboard was built on the native OpenSearch visualization engine (bypassing Wazuh 4.14.4 UI restrictions) to surface five critical KPIs in an asymmetric, SOC-optimized layout.
+
+**Automated threat containment** — The deployment was elevated from passive SIEM to active IPS through two automated response mechanisms: a custom `wall` broadcast alert for FIM-triggered persistence indicators (Rule 100001) and a network-level `firewall-drop` IP ban for brute-force attacks (Rule 100002), reducing the detection-to-containment window to under 2 seconds.
 
 ---
 
@@ -87,6 +89,13 @@ The lab is structured as a series of documented phases, each building on the pre
 | Phase 5+ | Terminal-based Discovery (`whoami`, `id`, `uname`) | 100004 | Level 7 | T1087 / T1082 — Discovery |
 | Phase 5+ | Reverse Shell establishment (Bash/Netcat/Socat) | 100005 | Level 12 | T1095 — Non-Application Layer Protocol |
 
+### Active response (engineered in Phase 8)
+
+| Trigger rule | Response mechanism | Action | Timeout |
+|---|---|---|---|
+| 100001 — `/etc/passwd` modification | Custom `alert-root.sh` | System-wide `wall` broadcast to all terminals | Immediate |
+| 100002 — SSH brute-force | Native `firewall-drop` | `iptables` IP ban on attacker source | 180 seconds |
+
 > The complete ATT&CK mapping matrix is maintained in [`detections/mitre-attack-map.md`](./detections/mitre-attack-map.md). Triage procedures for each custom rule are documented in the [`runbooks/`](./runbooks/) directory.
 
 ---
@@ -105,6 +114,8 @@ The lab is structured as a series of documented phases, each building on the pre
 
 **User-space command auditing without kernel recompilation** — Full terminal command visibility was achieved on WSL2 (where auditd is unavailable) by injecting a `PROMPT_COMMAND` hook into `/etc/bash.bashrc` that pipes every executed command through `logger` to syslog, tagged as `bash_audit`. This created the telemetry pipeline that rules 100004 and 100005 consume.
 
+**Active response in WSL2 — loopback whitelisting & missing dependencies** — Deploying automated IP banning on WSL2 required resolving three compounding issues: Windows PowerShell resolving `localhost` to IPv6 `::1`, Wazuh's hardcoded loopback whitelist preventing active responses against `127.0.0.1`/`::1`, and WSL2's minimal Ubuntu image shipping without `iptables`. Each was diagnosed through log analysis and resolved independently.
+
 ---
 
 ## Repository Structure
@@ -112,51 +123,48 @@ The lab is structured as a series of documented phases, each building on the pre
 ```
 wazuh-siem-homelab/
 │
-├── README.md
 ├── LICENSE
-├── SECURITY.md
+├── README.md
 │
-├── architecture/ 
-│    └── lab_architecture.md
+├── .github/
+│   ├── SECURITY.md
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   └── ISSUE_TEMPLATE/
+│       ├── config.yml
+│       ├── bug-report.yml
+│       └── phase-suggestion.yml
 │
-├── phases/ 
-│    ├── phase-1-stack-deployment.md      
-│    ├── phase-2-agent-deployment.md         
-│    ├── phase-3-threat-simulation.md           
-│    ├── phase-4-fim.md    
-│    ├── phase-5-custom-rules.md
-│    ├── phase-6-mitre-mapping.md
-│    └── phase-7-custom-dashboard.md
+├── architecture/
+│   └── lab_architecture.md
+│
+├── phases/
+│   ├── phase-1-stack-deployment.md
+│   ├── phase-2-agent-deployment.md
+│   ├── phase-3-threat-simulation.md
+│   ├── phase-4-fim.md
+│   ├── phase-5-custom-rules.md
+│   ├── phase-6-mitre-mapping.md
+│   ├── phase-7-custom-dashboard.md
+│   └── phase-8-active-response.md
 │
 ├── detections/
-│   └── mitre-attack-map.md                   
+│   └── mitre-attack-map.md
 │
-├── runbooks/
-│    ├── runbook-100001-passwd-modification.md  
-│    ├── runbook-100002-ssh-bruteforce.md       
-│    ├── runbook-100003-sudo-abuse.md           
-│    ├── runbook-100004-discovery.md            
-│    └── runbook-100005-reverse-shell.md     
-│ 
-├── .github/                            
-│   ├── CODE_OF_CONDUCT.md                     
-│   ├── CONTRIBUTING.md                        
-│   └── ISSUE_TEMPLATE/
-│       ├── config.yml                         
-│       ├── bug-report.yml                    
-│       └── phase-suggestion.yml               
+└── runbooks/
+    ├── runbook-100001-passwd-modification.md
+    ├── runbook-100002-ssh-bruteforce.md
+    ├── runbook-100003-sudo-abuse.md
+    ├── runbook-100004-discovery.md
+    └── runbook-100005-reverse-shell.md
 ```
 
 ---
 
 ## Roadmap
 
-- [x] Phase 4: Configure FIM on `/etc`, `/bin`, `/usr/bin` and document alert output
-- [x] Phase 5: Write custom Wazuh XML detection rules (brute-force threshold, sudo abuse, `/etc/passwd` modification)
-- [x] Phase 6: MITRE ATT&CK mapping table (complete coverage across phases 1 to 5)
-- [x] Phase 7: Implement a Custom Wazuh Dashboard starring at critical KPIs in lab
-- [ ] Phase 8: Implement Active Response scripts for automated threat containment
 - [ ] Phase 9: Integrate TheHive for incident case management
+- [ ] Increase gap coverage using MITRE ATT&CK Standard (for Lateral Movement and Exfiltration attacks) [Phase 10?]
 
 ---
 
